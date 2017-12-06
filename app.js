@@ -47,11 +47,11 @@ bot
 bot
   .dialog("help", (session) => {
     let card = new builder.HeroCard(session);
-    card.title("Here's are some stuff I can do");
+    card.title("Here are some stuff I can do :)");
     card.buttons([
-      builder.CardAction.imBack(session, "Hi! :D", "Say hello (bye)"),
-      builder.CardAction.postBack(session, "!print-jisho-manual", "JP-EN Dictionary"),
-      builder.CardAction.postBack(session, "!print-remindme-manual", "Make a reminder (waiting)")
+      builder.CardAction.imBack(session, "Hi! :D", "Say hello"),
+      builder.CardAction.imBack(session, "!jisho-manual", "JP-EN Dictionary"),
+      builder.CardAction.imBack(session, "!remindme-manual", "Make a reminder")
     ]);
     let msg = new builder.Message(session)
       .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -80,7 +80,7 @@ bot
     session.send(msg);
     session.endDialog();
   })
-  .triggerAction({ matches: /^!print-jisho-manual$/i });
+  .triggerAction({ matches: /^!jisho-manual$/i });
 
 bot
   .dialog("remindme-manual", function (session) {
@@ -100,7 +100,7 @@ bot
     session.send(msg);
     session.endDialog();
   })
-  .triggerAction({ matches: /^!print-remindme-manual$/i });
+  .triggerAction({ matches: /^!remindme-manual$/i });
 
 bot
   .dialog("unknown", function (session) { session.send(":-/"); session.endDialog(); })
