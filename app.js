@@ -38,11 +38,11 @@ bot
   .triggerAction({ matches: /^!remindme /i });
 
 bot
-  .dialog("haha", (session) => { session.send("hihi"); session.endDialog(); })
+  .dialog("haha", (session) => { session.send("hihi"); session.endConversation(); })
   .triggerAction({ matches: /haha/i });
 
 bot
-  .dialog("greetings", (session) => { session.send("(bye)"); session.endDialog(); })
+  .dialog("greetings", (session) => { session.send("(bye)"); session.endConversation(); })
   .triggerAction({ matches: /^(hello|hi)/i });
 
 bot
@@ -58,7 +58,7 @@ bot
       .attachmentLayout(builder.AttachmentLayout.carousel)
       .attachments([card]);
     session.send(msg);
-    session.endDialog();
+    session.endConversation();
   })
   .triggerAction({ matches: /^help/i });
 
@@ -79,7 +79,7 @@ bot
       .addAttachment(card);
     session.send(res);
     session.send(msg);
-    session.endDialog();
+    session.endConversation();
   })
   .triggerAction({ matches: /^!jisho-manual$/i });
 
@@ -99,9 +99,9 @@ bot
       .addAttachment(card);
     session.send(res);
     session.send(msg);
-    session.endDialog();
+    session.endConversation();
   })
   .triggerAction({ matches: /^!remindme-manual$/i });
 
 bot
-  .dialog("unknown", function (session) { session.send(":-/"); session.endDialog(); })
+  .dialog("unknown", function (session) { session.send(":-/"); session.endConversation(); })

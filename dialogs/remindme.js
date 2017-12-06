@@ -13,7 +13,7 @@ module.exports = function (builder, bot) {
         let matches = regexp.exec(text);
         if (!matches || matches.length != 4) {
             session.send("Wrong reminder format :( Please try again.")
-            session.endDialog();
+            session.endConversation();
             return;
         }
         let time = moment().utc().add(matches[1], matches[2]);
@@ -21,7 +21,7 @@ module.exports = function (builder, bot) {
         if (diff < 9500 || diff > 3600000) {
             if (diff < 9500) session.send(time.fromNow(true) + " is too soon from now >_< Try a later time!");
             else session.send(time.fromNow(true) + " is too far in the future >_< Try a nearer time!");
-            session.endDialog();
+            session.endConversation();
             return;
         }
         session.send("Roger! Your reminder will be sent to you on " + time.format("MMMM Do YYYY, h:mm:ss A") + " (UTC Time)  :D");
@@ -36,7 +36,7 @@ module.exports = function (builder, bot) {
         let j = schedule.scheduleJob(reminderTime, function () {
             sendAudioMessage(session.message.address, audioCard);
         });
-        session.endDialog();
+        session.endConversation();
     }
 
     function sendAudioMessage(address, audioCard) {

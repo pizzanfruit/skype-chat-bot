@@ -11,7 +11,7 @@ function getMoreResult(session) {
     let prevResult = session.dialogData.result;
     if (prevResult) {
         if (session.message.text.search(/\bmore\b/i) < 0) {
-            session.endDialog();
+            session.endConversation();
             return;
         }
         index = ++session.dialogData.index;
@@ -41,7 +41,8 @@ function getFirstResult(session) {
         if (statusCode == 200) printResult(session, result, 0, word);
         else {
             session.send("I think the server is down...")
-            session.endDialog();
+            session.endConversation();
+            return;
         }
     });
 }
@@ -51,10 +52,11 @@ function printResult(session, result, index, word = null) {
     if (!data) {
         if (index != 0) {
             session.send("Sorry, that's it. There's no more result :(");
-            session.endDialog();
+            session.endConversation();
             return;
         }
         session.send("Sorry, I couldn't find anything about **" + word + "**");
+        session.endConversation();
         return;
     }
     let res = "";
