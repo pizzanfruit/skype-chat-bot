@@ -9,7 +9,7 @@ module.exports = function (builder, bot) {
     function setReminder(session) {
         let text = session.message.text;
         console.log(text);
-        let regexp = /(\d+) (seconds|minutes|hours|days|second|minute|hour|day) "(.+)"/gi;
+        let regexp = /(\d+) (seconds|minutes|hours|days|second|minute|hour|day) "(.+)"/i;
         let matches = regexp.exec(text);
         if (!matches || matches.length != 4) {
             session.send("Wrong reminder format :( Please try again.")

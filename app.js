@@ -31,19 +31,19 @@ let bot = new builder.UniversalBot(connector, function (session) {
 
 bot
   .dialog("jisho", jishoDialog())
-  .triggerAction({ matches: /^!jisho /i });
+  .triggerAction({ matches: /!jisho /i });
 
 bot
   .dialog("remindme", remindMeDialog(builder, bot))
-  .triggerAction({ matches: /^!remindme /i });
+  .triggerAction({ matches: /!remindme /i });
 
 bot
   .dialog("haha", (session) => { session.send("hihi"); session.endConversation(); })
-  .triggerAction({ matches: /haha/i });
+  .triggerAction({ matches: /haha\b/i });
 
 bot
   .dialog("greetings", (session) => { session.send("Hi there :)"); session.endConversation(); })
-  .triggerAction({ matches: /^(hello|hi)/i });
+  .triggerAction({ matches: /(hello|hi)\b/i });
 
 bot
   .dialog("help", (session) => {
@@ -60,7 +60,7 @@ bot
     session.send(msg);
     session.endConversation();
   })
-  .triggerAction({ matches: /^help/i });
+  .triggerAction({ matches: /!help\b/i });
 
 bot
   .dialog("jisho-manual", function (session) {
@@ -81,7 +81,7 @@ bot
     session.send(msg);
     session.endConversation();
   })
-  .triggerAction({ matches: /^!jisho-manual$/i });
+  .triggerAction({ matches: /!jisho-manual$/i });
 
 bot
   .dialog("remindme-manual", function (session) {
@@ -101,7 +101,7 @@ bot
     session.send(msg);
     session.endConversation();
   })
-  .triggerAction({ matches: /^!remindme-manual$/i });
+  .triggerAction({ matches: /!remindme-manual$/i });
 
 bot
   .dialog("unknown", function (session) { session.send(":-/"); session.endConversation(); })

@@ -9,4 +9,4 @@ Except...
 
 3- Reminder
 
-Type **help** for help!
+Type **!help** for help!
