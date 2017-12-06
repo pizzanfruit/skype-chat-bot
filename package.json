@@ -4,7 +4,7 @@
   "description": "A simple Skype chat bot",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node app.js",
     "test": "echo \"No test specified\""
   },
   "keywords": [
