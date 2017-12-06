@@ -1,9 +1,11 @@
 
 let rest = require("../utils/rest");
 
-module.exports = jisho = [];
-
-jisho.push(getMoreResult);
+module.exports = function () {
+    let jisho = [];
+    jisho.push(getMoreResult);
+    return jisho;
+}
 
 function getMoreResult(session) {
     let prevResult = session.dialogData.result;
