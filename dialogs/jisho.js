@@ -35,7 +35,7 @@ function getFirstResult(session) {
             "Content-Type": "application/json"
         }
     };
-    session.send("@" + session.message.user.name + " Wait a sec, I'm looking for it...");
+    session.send(" Wait a sec, I'm looking for it...");
     rest.getJSON(options, function (statusCode, result) {
         session.dialogData.result = result;
         if (statusCode == 200) printResult(session, result, 0, word);
@@ -57,7 +57,7 @@ function printResult(session, result, index, word = null) {
         session.send("Sorry, I couldn't find anything about **" + word + "**");
         return;
     }
-    let res = "@" + session.message.user.name + "\n\n";
+    let res = "";
     let tags = data.tags;
     let japanese = data.japanese;
     let senses = data.senses;
