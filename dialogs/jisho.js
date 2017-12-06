@@ -33,7 +33,7 @@ function getFirstResult(session) {
             "Content-Type": "application/json"
         }
     };
-    session.send("Wait a sec, I'm looking for it...");
+    session.send("@" + session.message.user.name + " Wait a sec, I'm looking for it...");
     rest.getJSON(options, function (statusCode, result) {
         session.dialogData.result = result;
         if (statusCode == 200) printResult(session, result, 0, word);
@@ -55,7 +55,7 @@ function printResult(session, result, index, word = null) {
         session.send("Sorry, I couldn't find anything about **" + word + "**");
         return;
     }
-    let res = "";
+    let res = "@" + session.message.user.name + "\n\n";
     let tags = data.tags;
     let japanese = data.japanese;
     let senses = data.senses;
@@ -70,16 +70,16 @@ function printResult(session, result, index, word = null) {
         for (let i = 0; i < senses.length; i++) {
             let english = senses[i].english_definitions;
             let pos = senses[i].parts_of_speech;
-            res += (i + 1) + ". ";
+            if (senses.length > 1) res += (i + 1) + ". ";
             if (pos && pos.lenght > 0) {
                 res += pos.map(it => "_" + it + "_").join(", ");
                 res += ": ";
             }
             if (english && english.length > 0) res += english.join(", ");
-            res += "\n\n";
+            res += "\n";
         }
         // Tags
-        if (tags && tags.length > 0) res += "**Tag(s):** " + tags.join(", ");
+        if (tags && tags.length > 0) res += "\n**Tag(s):** " + tags.join(", ");
         session.send(res);
     };
 }
