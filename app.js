@@ -1,6 +1,41 @@
-var builder = require('botbuilder');
+let express = require("express");
+let builder = require("botbuilder");
 
-var connector = new builder.ConsoleConnector().listen();
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("You said: %s", session.message.text);
+let jishoDialog = require("./dialogs/jisho")
+
+let inMemoryStorage = new builder.MemoryBotStorage();
+let app = express();
+
+app.listen(process.env.port || process.env.PORT || 3978, () => {
+  console.log("Listening");
 });
+
+// Create chat connector for communicating with the Bot Framework Service
+let connector = new builder.ChatConnector({
+  appId: process.env.MICROSOFT_APP_ID,
+  appPassword: process.env.MICROSOFT_APP_PASSWORD
+});
+
+// Listen for messages from users
+app.post("/api/messages", connector.listen());
+
+// Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
+let bot = new builder.UniversalBot(connector, function (session) {
+  let text = session.message.text;
+  session.beginDialog("unknown");
+}).set('storage', inMemoryStorage);
+
+bot
+  .dialog("jisho", jishoDialog)
+  .triggerAction({ matches: /^!jisho /i });
+
+bot
+  .dialog("haha", (session) => { session.send("hihi"); session.endDialog(); })
+  .triggerAction({ matches: /haha/i });
+
+bot
+  .dialog("greetings", (session) => { session.send("(bye)"); session.endDialog(); })
+  .triggerAction({ matches: /(hello|hi)/i });
+
+bot
+  .dialog("unknown", function (session) { session.send(":-/"); session.endDialog(); })

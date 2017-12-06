@@ -2,9 +2,10 @@
   "name": "skype-chat-bot",
   "version": "1.0.0",
   "description": "A simple Skype chat bot",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "echo \"No test specified\""
   },
   "keywords": [
     "Skype",
@@ -13,6 +14,11 @@
   "author": "Pepper",
   "license": "MIT",
   "dependencies": {
-    "botbuilder": "^3.13.0"
+    "botbuilder": "^3.13.0",
+    "express": "^4.16.2"
+  },
+  "engines": {
+    "node": "6.11.4",
+    "npm": "5.5.1"
   }
 }
