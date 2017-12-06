@@ -42,7 +42,7 @@ bot
   .triggerAction({ matches: /haha/i });
 
 bot
-  .dialog("greetings", (session) => { session.send("(bye)"); session.endConversation(); })
+  .dialog("greetings", (session) => { session.send("Hi there :)"); session.endConversation(); })
   .triggerAction({ matches: /^(hello|hi)/i });
 
 bot
@@ -72,8 +72,8 @@ bot
     res += "\n\n";
     let card = new builder.HeroCard(session);
     card.buttons([
-      builder.CardAction.imBack(session, "!jisho これ", "Look up an example Japanese phrase"),
-      builder.CardAction.imBack(session, "!jisho program", "Look up an example English phrase"),
+      builder.CardAction.imBack(session, "!jisho これ", "Japanese example"),
+      builder.CardAction.imBack(session, "!jisho program", "English example"),
     ]);
     let msg = new builder.Message(session)
       .addAttachment(card);
@@ -88,7 +88,7 @@ bot
     let res = "";
     res += "You can ask me to remind you of something later.\n\n";
     res += "It's simple, just say this! \n\n";
-    res += "**> !remindme [period of time] > \"[your message]\"**\n\n";
+    res += "**> !remindme [period of time] \"[your message]\"**\n\n";
     res += "Your message will then be delivered to you, just in time to remind you of your important task! Convenient right? ;)\n\n";
     res += "\n\n";
     let card = new builder.HeroCard(session);
