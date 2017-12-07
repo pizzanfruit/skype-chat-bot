@@ -8,10 +8,11 @@ module.exports = function (builder, bot) {
 
     function setReminder(session) {
         let text = session.message.text;
-        console.log(text);
-        let regexp = /(\d+) (seconds|minutes|hours|days|second|minute|hour|day) "(.+)"/i;
+        console.log("::setReminder Text: " + text);
+        let regexp = /(\d+) (seconds|minutes|hours|days|second|minute|hour|day) ("|&quot;)(.+)("|&quot;)/i;
         let matches = regexp.exec(text);
-        if (!matches || matches.length != 4) {
+        console.log(matches);
+        if (!matches || matches.length != 6) {
             session.send("Wrong reminder format :( Please try again.")
             session.endConversation();
             return;
@@ -29,7 +30,7 @@ module.exports = function (builder, bot) {
         let audioCard = new builder.AudioCard(session)
             .autoloop(true)
             .autostart(true)
-            .title(matches[3])
+            .text(matches[4])
             .media([
                 { url: 'https://kukuklok.com/audio/guitar.mp3' }
             ])
