@@ -23,7 +23,9 @@ function getMoreResult(session) {
 }
 
 function getFirstResult(session) {
-    let word = session.message.text.slice(7);
+    let text = session.message.text;
+    let jishoIndex = text.search(/!jisho /i);
+    let word = session.message.text.slice(7 + jishoIndex);
     let options = {
         host: "jisho.org",
         port: 80,
