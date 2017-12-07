@@ -9,7 +9,7 @@ module.exports = function (builder, bot) {
     function setReminder(session) {
         let text = session.message.text;
         console.log("::setReminder Text: " + text);
-        let regexp = /(\d+) (seconds|minutes|hours|days|second|minute|hour|day) ("|&quot;)(.+)("|&quot;)/i;
+        let regexp = /!remindme (\d+) (seconds|minutes|hours|days|second|minute|hour|day) ("|&quot;)(.+)("|&quot;)/i;
         let matches = regexp.exec(text);
         console.log(matches);
         if (!matches || matches.length != 6) {
