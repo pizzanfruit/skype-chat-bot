@@ -164,6 +164,28 @@ bot
   .triggerAction({ matches: /!redis-manual$/i });
 
 bot
+  .dialog("goodnight", function (session) {
+    let min = 0;
+    let max = 9;
+    let rand = Math.floor(Math.random() * (max - min + 1)) + min
+    let pool = [
+      "Good night to you too :)",
+      "Sweet dream! ;)",
+      "G9 (bye)",
+      "Night night :)",
+      "Have a sweet dream ^_^",
+      "Night~ :)",
+      "Good night! :)",
+      "Sweet dream~",
+      "Oyasumi ;)",
+      "You too :D",
+    ]
+    session.send(pool[rand]);
+    session.endConversation();
+  })
+  .triggerAction({ matches: /(good night|g9$|goodnight)/i });
+
+bot
   .dialog("unknown", function (session) { session.send(":-/"); session.endConversation(); })
 
 function cleanup() {
