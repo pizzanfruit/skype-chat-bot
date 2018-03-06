@@ -86,12 +86,12 @@ bot
 bot
   .dialog("help", (session) => {
     let card = new builder.HeroCard(session);
-    card.title("Here are some stuff I can do :)");
+    card.title("Here are some stuff I can do 😊");
     card.buttons([
-      builder.CardAction.imBack(session, "Hi! :D", "Say hello"),
-      builder.CardAction.imBack(session, "!jisho-manual", "JP-EN Dictionary"),
-      builder.CardAction.imBack(session, "!remindme-manual", "Make a reminder"),
-      builder.CardAction.imBack(session, "<deprecated>!redis-manual", "Query Redis Cache")
+      builder.CardAction.imBack(session, "Hi! :D", "👋Say hello"),
+      builder.CardAction.imBack(session, "!jisho-manual", "📙JP-EN Dictionary"),
+      builder.CardAction.imBack(session, "!remindme-manual", "⏰Make a reminder"),
+      builder.CardAction.imBack(session, "!redis-manual", "<deprecated> Query Redis Cache")
     ]);
     let msg = new builder.Message(session)
       .attachmentLayout(builder.AttachmentLayout.carousel)
@@ -107,7 +107,7 @@ bot
     res += "You can look for a dictionary entry for a English or Japanese phrase.\n\n";
     res += "Here's how you can ask me. Just say this: \n\n";
     res += "**> !jisho [word]**\n\n";
-    res += "I'll send back a dictionary entry in return. You can even ask for more! Just tell me, ok? ;) \n\n";
+    res += "I'll send back a dictionary entry in return. You can even ask for more! Just tell me, ok? 😉 \n\n";
     res += "\n\n";
     let card = new builder.HeroCard(session);
     card.buttons([
@@ -128,7 +128,7 @@ bot
     res += "You can ask me to remind you of something later.\n\n";
     res += "It's simple, just say this! \n\n";
     res += "**> !remindme [period of time] \"[your message]\"**\n\n";
-    res += "Your message will then be delivered to you, just in time to remind you of your important task! Convenient right? ;)\n\n";
+    res += "Your message will then be delivered to you, just in time to remind you of your important task! Convenient right? 😉\n\n";
     res += "\n\n";
     let card = new builder.HeroCard(session);
     card.buttons([
