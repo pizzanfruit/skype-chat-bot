@@ -91,7 +91,7 @@ bot
       builder.CardAction.imBack(session, "Hi! :D", "Say hello"),
       builder.CardAction.imBack(session, "!jisho-manual", "JP-EN Dictionary"),
       builder.CardAction.imBack(session, "!remindme-manual", "Make a reminder"),
-      builder.CardAction.imBack(session, "!redis-manual", "Query Redis Cache")
+      builder.CardAction.imBack(session, "<deprecated>!redis-manual", "Query Redis Cache")
     ]);
     let msg = new builder.Message(session)
       .attachmentLayout(builder.AttachmentLayout.carousel)
