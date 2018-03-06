@@ -1,6 +1,6 @@
 let express = require("express");
 let builder = require("botbuilder");
-var redis = require("redis");
+// var redis = require("redis");
 
 let jishoDialog = require("./dialogs/jisho")
 let remindMeDialog = require("./dialogs/remindme")
@@ -8,13 +8,13 @@ let remindMeDialog = require("./dialogs/remindme")
 let inMemoryStorage = new builder.MemoryBotStorage();
 let app = express();
 
-let redisOptions = {
-  host: process.env.redis_host,
-  port: process.env.redis_port,
-  password: process.env.redis_password
-}
+// let redisOptions = {
+//   host: process.env.redis_host,
+//   port: process.env.redis_port,
+//   password: process.env.redis_password
+// }
 
-let redisClient = redis.createClient(redisOptions);
+// let redisClient = redis.createClient(redisOptions);
 
 app.use(express.static(__dirname + '/static'));
 
@@ -54,34 +54,34 @@ bot
   .dialog("greetings", (session) => { session.send("Hi there :)"); session.endConversation(); })
   .triggerAction({ matches: /(hello|hi)\b/i });
 
-bot
-  .dialog("redis", (session) => {
-    let text = session.message.text;
-    console.log("::redis Text: " + text);
-    let regexp = /!redis (KEYS|GET) (.+)/i;
-    let matches = regexp.exec(text);
-    console.log(matches);
-    if (!matches || matches.length != 3) {
-      session.send("Wrong reminder format :( Please try again.")
-      session.endConversation();
-      return;
-    }
-    if (matches[1].toLowerCase() == "keys") {
-      redisClient.keys(matches[2], function (err, replies) {
-        let res = "I found **" + replies.length + " key(s)**:\n\n";
-        replies.forEach(function (reply, i) {
-          res += "    " + (i + 1) + ". " + reply + "\n";
-        });
-        session.send(res);
-      });
-    } else {
-      redisClient.get(matches[2], function (err, reply) {
-        if (!reply) session.send("I can't find the key you were looking for :(\n");
-        else session.send("The value is: **" + reply + "** :)\n");
-      });
-    }
-  })
-  .triggerAction({ matches: /!redis\b/i });
+// bot
+//   .dialog("redis", (session) => {
+//     let text = session.message.text;
+//     console.log("::redis Text: " + text);
+//     let regexp = /!redis (KEYS|GET) (.+)/i;
+//     let matches = regexp.exec(text);
+//     console.log(matches);
+//     if (!matches || matches.length != 3) {
+//       session.send("Wrong reminder format :( Please try again.")
+//       session.endConversation();
+//       return;
+//     }
+//     if (matches[1].toLowerCase() == "keys") {
+//       redisClient.keys(matches[2], function (err, replies) {
+//         let res = "I found **" + replies.length + " key(s)**:\n\n";
+//         replies.forEach(function (reply, i) {
+//           res += "    " + (i + 1) + ". " + reply + "\n";
+//         });
+//         session.send(res);
+//       });
+//     } else {
+//       redisClient.get(matches[2], function (err, reply) {
+//         if (!reply) session.send("I can't find the key you were looking for :(\n");
+//         else session.send("The value is: **" + reply + "** :)\n");
+//       });
+//     }
+//   })
+//   .triggerAction({ matches: /!redis\b/i });
 
 bot
   .dialog("help", (session) => {
