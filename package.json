@@ -14,14 +14,17 @@
   "author": "Pepper",
   "license": "MIT",
   "dependencies": {
-    "botbuilder": "^3.13.0",
+    "axios": "^0.18.0",
+    "botbuilder": "^3.15.0",
     "express": "^4.16.2",
+    "firebase": "^5.5.5",
+    "firebase-admin": "^6.2.0",
     "moment": "^2.19.3",
     "node-schedule": "^1.2.5",
     "redis": "^2.8.0"
   },
   "engines": {
-    "node": "6.11.4",
-    "npm": "5.5.1"
+    "node": "10.9.0",
+    "npm": "6.2.0"
   }
 }

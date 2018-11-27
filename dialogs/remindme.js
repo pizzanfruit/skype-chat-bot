@@ -52,6 +52,7 @@ module.exports = function(builder, bot) {
   }
 
   function sendAudioMessage(address, audioCard) {
+    delete address.conversation;
     let msg = new builder.Message().address(address);
     msg.text("Hey! I'm here to remind you like I promised ;)");
     msg.addAttachment(audioCard);

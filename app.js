@@ -4,6 +4,7 @@ let builder = require("botbuilder");
 
 let jishoDialog = require("./dialogs/jisho");
 let remindMeDialog = require("./dialogs/remindme");
+let subscriberLogworkReminderDialog = require("./dialogs/subscribeLogworkReminder");
 
 let inMemoryStorage = new builder.MemoryBotStorage();
 let app = express();
@@ -32,7 +33,6 @@ let connector = new builder.ChatConnector({
 app.post("/api/messages", connector.listen());
 app.post("/", connector.listen());
 
-// Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 let bot = new builder.UniversalBot(connector, function(session) {
   let text = session.message.text;
   session.beginDialog("unknown");
@@ -43,6 +43,13 @@ bot.dialog("jisho", jishoDialog()).triggerAction({ matches: /!jisho /i });
 bot
   .dialog("remindme", remindMeDialog(builder, bot))
   .triggerAction({ matches: /!remindme /i });
+
+bot
+  .dialog(
+    "subscribe-logwork-reminder",
+    subscriberLogworkReminderDialog(builder, bot)
+  )
+  .triggerAction({ matches: /!subscribe logwork-reminder/i });
 
 bot
   .dialog("haha", session => {
@@ -56,7 +63,7 @@ bot
     session.send("Hi there :)");
     session.endConversation();
   })
-  .triggerAction({ matches: /(hello|hi)\b/i });
+  .triggerAction({ matches: /(hello|hi).+(cat\b)|(cat\b).+(hello|hi)/i });
 
 // bot
 //   .dialog("redis", (session) => {
@@ -92,7 +99,7 @@ bot
     let card = new builder.HeroCard(session);
     card.title("Here are some stuff I can do 😊");
     card.buttons([
-      builder.CardAction.imBack(session, "Hi! :D", "👋Say hello"),
+      builder.CardAction.imBack(session, "Hi, cat! :D", "👋Say hello"),
       builder.CardAction.imBack(session, "!jisho-manual", "📙JP-EN Dictionary"),
       builder.CardAction.imBack(
         session,
@@ -202,14 +209,13 @@ bot
   .triggerAction({ matches: /(good night|g9$|goodnight)/i });
 
 bot.dialog("unknown", function(session) {
-  session.send(":-/");
   session.endConversation();
 });
 
 function cleanup() {
   server.close(function() {
-    console.log("Close out redis");
-    redisClient.quit();
+    //console.log("Close out redis");
+    //redisClient.quit();
     process.exit();
   });
 

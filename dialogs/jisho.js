@@ -1,4 +1,5 @@
-let rest = require("../utils/rest");
+// let rest = require("../utils/rest");
+let axios = require("axios");
 
 module.exports = function() {
   let jisho = [];
@@ -25,27 +26,23 @@ function getFirstResult(session) {
   let text = session.message.text;
   let jishoIndex = text.search(/!jisho /i);
   let word = session.message.text.slice(7 + jishoIndex);
-  let options = {
-    host: "jisho.org",
-    port: 80,
-    path: "/api/v1/search/words?keyword=" + encodeURIComponent(word),
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
   session.send(" Wait a sec, I'm looking for it...");
-  rest.getJSON(options, function(statusCode, result) {
-    session.dialogData.result = result;
-    console.log("statusCode");
-    console.log(statusCode);
-    if (statusCode == 200) printResult(session, result, 0, word);
-    else {
+  axios
+    .get(
+      "https://jisho.org/api/v1/search/words?keyword=" +
+        encodeURIComponent(word)
+    )
+    .then(res => {
+      const result = res.data;
+      session.dialogData.result = result;
+      session.dialogData.index = 0;
+      printResult(session, result, 0, word);
+    })
+    .catch(err => {
+      console.error(err);
       session.send("I think the server is down...");
       session.endConversation();
-      return;
-    }
-  });
+    });
 }
 
 function printResult(session, result, index, word = null) {
