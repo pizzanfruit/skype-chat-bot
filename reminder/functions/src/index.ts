@@ -18,6 +18,13 @@ const bot = new builder.UniversalBot(connector, function(session) {
   session.beginDialog("unknown");
 }).set("storage", inMemoryStorage);
 
+const reminders = [
+  "Nhớ logwork nhé :)",
+  "Quên logwork là không có xèng đâu :-S",
+  "Lại quên logwork đúng không x-(?",
+  "Hôm nay logwork chưa thế :-?"
+];
+
 export const logworkReminder = functions.https.onRequest(async (req, res) => {
   const collectionRef = db.collection("logwork-reminder-subscribers");
   const subscribers = [];
@@ -28,9 +35,14 @@ export const logworkReminder = functions.https.onRequest(async (req, res) => {
   );
   for (const subscriber of subscribers) {
     const msg = new builder.Message().address(subscriber);
-    msg.text("Nhớ logwork nhé :)");
+    const randomReminder = randomValueFromArray(reminders);
+    msg.text(`${randomReminder} --> https://insight.fsoft.com.vn/jira`);
     bot.send(msg);
+    console.log(subscriber);
   }
-
   res.sendStatus(200);
 });
+
+function randomValueFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}

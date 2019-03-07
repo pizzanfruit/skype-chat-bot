@@ -1,6 +1,9 @@
 # Credentials
 # credentials/
 
+# Libraries
+lib/
+
 # Logs
 logs
 *.log
